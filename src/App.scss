@@ -1,0 +1,27 @@
+@import "./styles/commons.scss";
+
+.app-container {
+  padding: 0.5em;
+  background: $background-blue;
+  height: 100vh;
+  overflow: hidden;
+
+  .floating-add-entry-btn {
+    height: 5em;
+    width: 5em;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    background: $primary-blue;
+  }
+
+  .add-icon {
+    height: 2em;
+  }
+}
+
+h1 {
+  margin: 0.5em 0;
+  color: $primary-blue;
+}

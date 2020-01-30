@@ -1,0 +1,27 @@
+@import "../../styles/commons.scss";
+
+.task-list {
+  margin: 2em 0;
+  overflow: auto;
+  height: 100%;
+}
+
+.task-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  border: 1px solid $grey-10;
+  border-radius: 4px;
+  background: $white;
+  margin: 1em 0;
+
+  .task-title {
+    font-size: 1.5em;
+    font-weight: 700;
+  }
+
+  .task-time {
+    font-size: 1.5em;
+    font-weight: 300;
+  }
+}

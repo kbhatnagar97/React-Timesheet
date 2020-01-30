@@ -1,26 +1,53 @@
+/**
+ * @author: Tejas Upmanyu (@tejasupmanyu)
+ * App Component
+ */
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import addIcon from './assets/plus-icon.svg';
+import { NewEntrySheet, IEntry } from './components/NewEntrySheet';
+import { TaskList } from './components/TaskList';
+import { storageKey } from './constants/constants';
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    const [isEntrySheetOpen, setIsEntrySheetOpen] = React.useState(false);
+
+    const openEntrySheet = () => {
+        setIsEntrySheetOpen(true);
+    };
+
+    const closeEntrySheet = () => {
+        setIsEntrySheetOpen(false);
+    };
+
+    const onAddEntry = (entry: IEntry) => {
+        const existingTasksString = window.localStorage.getItem(storageKey);
+        if (existingTasksString) {
+            const existingTasks = JSON.parse(existingTasksString);
+            const newTasks = [...existingTasks, entry];
+            window.localStorage.setItem(storageKey, JSON.stringify(newTasks));
+        } else {
+            window.localStorage.setItem(storageKey, JSON.stringify([entry]));
+        }
+        closeEntrySheet();
+    };
+
+    const getTaskEntries = () => {
+        const entriesString = window.localStorage.getItem(storageKey);
+        const entries = entriesString ? JSON.parse(entriesString) : [];
+        return entries;
+    };
+
+    return (
+        <div className="app-container">
+            <h1>Timesheet</h1>
+            <TaskList entries={getTaskEntries()} />
+            <button className="floating-add-entry-btn" onClick={openEntrySheet}>
+                <img className="add-icon" src={addIcon} alt="add entry" />
+            </button>
+            {isEntrySheetOpen && <NewEntrySheet onClose={closeEntrySheet} onAdd={onAddEntry} />}
+        </div>
+    );
+};
 
 export default App;
