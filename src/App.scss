@@ -14,10 +14,16 @@
     bottom: 5%;
     right: 5%;
     background: $primary-blue;
+    border:none;
   }
 
   .add-icon {
     height: 2em;
+  }
+
+  .empty-text {
+    font-weight: 300;
+    margin: 2em 0.5em;
   }
 }
 

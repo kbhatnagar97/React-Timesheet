@@ -38,10 +38,16 @@ const App: React.FC = () => {
         return entries;
     };
 
+    const entries = getTaskEntries();
+
     return (
         <div className="app-container">
             <h1>Timesheet</h1>
-            <TaskList entries={getTaskEntries()} />
+            {entries.length > 0 ? (
+                <TaskList entries={entries} />
+            ) : (
+                <p className="empty-text">No entries yet. Add a new entry by clicking the + button.</p>
+            )}
             <button className="floating-add-entry-btn" onClick={openEntrySheet}>
                 <img className="add-icon" src={addIcon} alt="add entry" />
             </button>

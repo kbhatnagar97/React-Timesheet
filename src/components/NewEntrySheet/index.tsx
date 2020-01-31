@@ -47,7 +47,7 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
                 <div className="sheet-title">
                     <span className="title">Add New Entry</span>
                 </div>
-                <button className="close-sheet-btn" onClick={props.onClose}>
+                <button className="close-sheet-btn" onClick={props.onClose} autoFocus>
                     <img src={crossIcon} alt="close" className="close-icon" />
                 </button>
             </div>
