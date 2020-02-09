@@ -17,12 +17,15 @@ export interface IEntry {
     task: string;
     hours: string;
     minutes: string;
+    remarks: string;
 }
 
 export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) => {
     const [task, setTask] = React.useState(taskTypes[0]);
     const [hours, setHours] = React.useState('');
     const [minutes, setMinutes] = React.useState('');
+    const [remarks, setRemarks] = React.useState('');
+
 
     const onTaskChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setTask(event.target.value);
@@ -36,8 +39,12 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
         setMinutes(event.target.value);
     };
 
+    const onRemarksChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRemarks(event.target.value)
+    };
+
     const onAddEntry = () => {
-        const entry: IEntry = { task, hours, minutes };
+        const entry: IEntry = { task, hours, minutes, remarks };
         props.onAdd(entry);
     };
 
@@ -85,6 +92,14 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
                                 <span className="time-indicator">m</span>
                             </div>
                         </div>
+                    </label>
+                </div>
+                <div className="row-remarks">
+                    <label className="reamrks-text">
+                        Remarks
+                    </label>
+                    <label className="remarks-box">
+                            <input type="text" className="task-detail-input" onChange={onRemarksChange} value={remarks} placeholder="Remarks"/>
                     </label>
                 </div>
             </div>

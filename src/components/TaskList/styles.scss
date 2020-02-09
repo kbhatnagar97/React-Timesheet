@@ -7,13 +7,23 @@
 }
 
 .task-card {
-  display: flex;
+  display:flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 1em;
   border: 1px solid $grey-10;
   border-radius: 4px;
   background: $white;
   margin: 1em 0;
+
+.task-card-row1 {
+  display: flex;
+  justify-content: space-between;
+  background: $white;
+}
+.task-card-row2 {
+  margin: 0.5em 0;
+}
 
   .task-title {
     font-size: 1.5em;
