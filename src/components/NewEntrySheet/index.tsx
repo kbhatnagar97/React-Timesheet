@@ -25,6 +25,7 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
     const [hours, setHours] = React.useState('');
     const [minutes, setMinutes] = React.useState('');
     const [remarks, setRemarks] = React.useState('');
+    const [check, setcheck] = React.useState(true);
 
 
     const onTaskChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -44,11 +45,14 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
     };
 
     const onAddEntry = () => {
-        const entry: IEntry = { task, hours, minutes, remarks };
+        const entry: IEntry = { task, hours, minutes, remarks,};
         props.onAdd(entry);
     };
+    const checkfunc = () => {
+    (hours.length > 0 && minutes.length > 0 && remarks.length > 0)? setcheck(false) : setcheck(true);
+    };
 
-    return (
+    return ( 
         <div className="new-entry-sheet">
             <div className="sheet-header">
                 <div className="sheet-title">
@@ -64,7 +68,7 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
                         Task Type
                         <select className="task-select" onChange={onTaskChange} value={task}>
                             {taskTypes.map((task: string) => (
-                                <option value={task}>{task}</option>
+                                <option value={task} key="random">{task}</option>
                             ))}
                         </select>
                     </label>
@@ -78,6 +82,7 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
                                     className="hour-input"
                                     onChange={onHoursChange}
                                     value={hours}
+                                    onKeyUp = {checkfunc}
                                 />
                                 <span className="time-indicator">h</span>
                             </div>
@@ -88,6 +93,7 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
                                     className="minute-input"
                                     onChange={onMinutesChange}
                                     value={minutes}
+                                    onKeyUp = {checkfunc}
                                 />
                                 <span className="time-indicator">m</span>
                             </div>
@@ -99,13 +105,20 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
                         Remarks
                     </label>
                     <label className="remarks-box">
-                            <input type="text" className="task-detail-input" onChange={onRemarksChange} value={remarks} placeholder="Remarks"/>
+                            <input 
+                            type="text" 
+                            className="task-detail-input" 
+                            onChange={onRemarksChange} value={remarks} 
+                            placeholder="Remarks"
+                            onKeyUp = {checkfunc}
+                            />
                     </label>
                 </div>
             </div>
             <div className="sheet-footer">
                 <div className="action-group">
-                    <Button color="primary" onClick={onAddEntry}>
+                    
+                    <Button color="primary" onClick={onAddEntry} status={check}>
                         Add Entry
                     </Button>
                 </div>

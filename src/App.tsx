@@ -1,7 +1,3 @@
-/**
- * @author: Tejas Upmanyu (@tejasupmanyu)
- * App Component
- */
 import React from 'react';
 import './App.scss';
 import addIcon from './assets/plus-icon.svg';
