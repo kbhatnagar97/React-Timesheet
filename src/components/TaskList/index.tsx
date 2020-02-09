@@ -5,7 +5,7 @@
 import * as React from 'react';
 import './styles.scss';
 import { IEntry } from '../NewEntrySheet';
-
+import xx from "../../assets/cross-icon.svg"
 interface ITaskListProps {
     entries: IEntry[];
 }
@@ -30,14 +30,15 @@ const TaskCard: React.FC<ITaskCardProps> = (props: ITaskCardProps) => {
     } = props;
     return (
         <div className="task-card">
+            
+                <button className="cross-button"><img src={xx} width="10px" alt="cross"/></button>
+
             <div className="task-card-row1">
                 <div className="task-title">{task}</div>
                 <div className="task-time">{`${hours}h ${minutes}m`}</div>
             </div > 
             <div className="task-card-row2">
                 {remarks}
-            <div>
-        </div>
             </div>
         </div>
     );
