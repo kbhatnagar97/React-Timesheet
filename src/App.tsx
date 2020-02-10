@@ -7,6 +7,11 @@ import { storageKey } from './constants/constants';
 
 const App: React.FC = () => {
     const [isEntrySheetOpen, setIsEntrySheetOpen] = React.useState(false);
+    const [todo, setTodo] = React.useState();
+
+    function keymaker() {
+        return Math.round(Math.random()*10^8);
+    }
 
     const openEntrySheet = () => {
         setIsEntrySheetOpen(true);
@@ -28,6 +33,17 @@ const App: React.FC = () => {
         closeEntrySheet();
     };
 
+    const deleteEntry = (entry: IEntry) => {
+        const existingTasksString = window.localStorage.getItem(storageKey);
+        if (existingTasksString) {
+            const existingTasks = JSON.parse(existingTasksString);
+            const newTasks = [...existingTasks];
+            const filtered = newTasks.filter(tmp => tmp.id !== entry.id);
+            window.localStorage.setItem(storageKey, JSON.stringify(filtered));
+            setTodo(filtered);
+        }
+    }
+
     const getTaskEntries = () => {
         const entriesString = window.localStorage.getItem(storageKey);
         const entries = entriesString ? JSON.parse(entriesString) : [];
@@ -40,14 +56,14 @@ const App: React.FC = () => {
         <div className="app-container">
             <h1>Timesheet</h1>
             {entries.length > 0 ? (
-                <TaskList entries={entries} />
+                <TaskList key={keymaker()} entries={entries} delete={deleteEntry} />
             ) : (
                 <p className="empty-text">No entries yet. Add a new entry by clicking the + button.</p>
             )}
             <button className="floating-add-entry-btn" onClick={openEntrySheet}>
                 <img className="add-icon" src={addIcon} alt="add entry" />
             </button>
-            {isEntrySheetOpen && <NewEntrySheet onClose={closeEntrySheet} onAdd={onAddEntry} />}
+            {isEntrySheetOpen && <NewEntrySheet key={keymaker()} onClose={closeEntrySheet} onAdd={onAddEntry} />}
         </div>
     );
 };

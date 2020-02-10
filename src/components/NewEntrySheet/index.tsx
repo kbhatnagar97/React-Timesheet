@@ -14,6 +14,7 @@ interface INewEntrySheet {
 }
 
 export interface IEntry {
+    id: number;
     task: string;
     hours: string;
     minutes: string;
@@ -26,6 +27,7 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
     const [minutes, setMinutes] = React.useState('');
     const [remarks, setRemarks] = React.useState('');
     const [check, setcheck] = React.useState(true);
+    const [id, setId] = React.useState(Math.round(Math.random())*10^8);
 
 
     const onTaskChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -45,7 +47,7 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
     };
 
     const onAddEntry = () => {
-        const entry: IEntry = { task, hours, minutes, remarks,};
+        const entry: IEntry = {id, task, hours, minutes, remarks,};
         props.onAdd(entry);
     };
     const checkfunc = () => {
@@ -68,7 +70,7 @@ export const NewEntrySheet: React.FC<INewEntrySheet> = (props: INewEntrySheet) =
                         Task Type
                         <select className="task-select" onChange={onTaskChange} value={task}>
                             {taskTypes.map((task: string) => (
-                                <option value={task} key="random">{task}</option>
+                                <option value={task} key={task}>{task}</option>
                             ))}
                         </select>
                     </label>
